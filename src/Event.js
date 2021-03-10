@@ -4,7 +4,14 @@ import React, { Component } from "react";
 
 class Event extends Component {
   render() {
-    return <div></div>;
+    const { event } = this.props;
+
+    return (
+      <div>
+        <div>{event.summary}</div>
+        <div>{event.location}</div>
+      </div>
+    );
   }
 }
 export default Event;

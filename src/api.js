@@ -18,9 +18,10 @@ export const extractLocations = (events) => {
 };
 
 const checkToken = async (accessToken) => {
-  const result = await axios.get(
+  const result = await fetch(
     `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
   )
+    .then((res) => res.json())
     .catch((error) => error.json());
 
   return result;
@@ -90,9 +91,12 @@ const removeQuery = () => {
 
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
-  const { access_token } = await axios.get(
+  const { access_token } = await fetch(
     'http://localhost:3000/dev/api/token' + '/' + encodeCode
   )
+    .then((res) => {
+      return res.json();
+    })
     .catch((error) => error);
 
   access_token && localStorage.setItem("access_token", access_token);
